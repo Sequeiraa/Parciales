@@ -6,107 +6,110 @@ namespace Ejercicio3_Parcial2
     {
         static void Main(string[] args)
         {     
-            ganancias();
+            sucursales();
             Console.ReadKey();
-            static void ganancias ()
+            static void sucursales()
             {
-                Console.Title = "Nombre de las sucursales";
-                string[] sucursal = new string[5];                
+                Console.Title = "Sucursales";
+                string[] nombreDeSucursal = new string[5];                
                 int[] empleados = new int[5];
-                int empleadosSobrantes = 0;
-                double[] gananciaS = new double[5];                
-                double gananciasT = 0;
-                int menor = 0; 
-                int mayor = 0;
+                double[] gananciaDeSucursal = new double[5];
 
-                for (int i = 0; i < sucursal.Length; i++)
+                double gananciasTotales = 0;
+                int empleadosSobrantes = 0;
+                int arribaMenor = 0; 
+                int arribaMayor = 0;
+
+                for (int i = 0; i < nombreDeSucursal.Length; i++)
                 {
                     Console.Write($"Nombre de la sucursal: ");
-                    sucursal[i] = Console.ReadLine();
+                    nombreDeSucursal[i] = Console.ReadLine();
 
-                    Console.Write($"Ganancias de la sucursal ({sucursal[i]}): $");
-                    sucursal[i] = double.Parse(Console.ReadLine());
+                    Console.Write($"Ganancias de la sucursal ({nombreDeSucursal[i]}): $");
+                    gananciaDeSucursal[i] = double.Parse(Console.ReadLine());
 
-                    while (gananciaS[i] < 1000 || gananciaS[i] > 50000)
+                    while (gananciaDeSucursal[i] < 1000 || gananciaDeSucursal[i] > 50000)
                     {
                         Console.WriteLine("El valor ingresado no es correcto.");
-                        Console.Write($"Ganancias de la sucursal {sucursal[i]}: $");
-                        gananciaS[i] = double.Parse(Console.ReadLine());
+                        Console.Write($"Ganancias de la sucursal {nombreDeSucursal[i]}: $");
+                        gananciaDeSucursal[i] = double.Parse(Console.ReadLine());
                     }
-                    
-                    Console.Write($"Cantidad de empleados ({sucursal[i]}): ");
+                    Console.Write($"Cantidad de empleados ({nombreDeSucursal[i]}): ");
                     empleados[i] = int.Parse(Console.ReadLine());
-                    for (int i = 0; i < 5; i++)
+                    while (empleados[i] < 10)
                     {
-                        while (empleados[i] > 20)
+                        Console.WriteLine("El valor es minimo a la cantidad de empleados permitidos.");
+                        Console.Write($"Cantidad de empleados ({nombreDeSucursal[i]}): ");
+                        empleados[i] = int.Parse(Console.ReadLine());
+                    }
+                    Console.Write("\n");
+                }
+              
+                for (int i = 0; i < 5; i++)
+                {
+                    while (empleados[i] > 20)
+                    {
+                        empleadosSobrantes = empleados[i] - 20;
+                        empleados[i] = 20;
+                        for (int k = 0; k < 5; k++)
                         {
-                            empleadosSobrantes = empleados[i] - 20;
-                            empleados[i] = 20;
-                            for (int k = 0; k < 5; k++)
+                            if (empleadosSobrantes <= 0)
+                                break;
+
+                            while (empleados[k] < 20)
                             {
                                 if (empleadosSobrantes <= 0)
                                     break;
 
-                                while (empleados[k] < 20)
-                                {
-                                    if (empleadosSobrantes <= 0)
-                                        break;
-
-                                    empleados[k]++;
-                                    empleadosSobrantes--;
-                                }
+                                empleados[k]++;
+                                empleadosSobrantes--;
                             }
                         }
                     }
-                    while (empleados[i] < 10)
-                    {
-                        Console.WriteLine("El valor es minimo a la cantidad de empleados permitidos.");
-                        Console.Write($"Cantidad de empleados ({sucursal[i]}): ");
-                        empleados[i] = int.Parse(Console.ReadLine());
-                    }
-                }                              
+                }
+
                 
                 for (int i = 0; i < 5; i++)
                 {
-                    gananciasT += gananciaS[i];
+                    gananciasTotales += gananciaDeSucursal[i];
 
-                    if (gananciaS[i] > 1000 && gananciaS[i] < 25000)
-                        menor++;
-                    if (gananciaS[i] >= 25000)
-                        mayor++;
+                    if (gananciaDeSucursal[i] > 1000 && gananciaDeSucursal[i] < 25000)
+                        arribaMenor++;
+                    if (gananciaDeSucursal[i] >= 25000)
+                        arribaMayor++;
                 }
                 Console.Clear();
-                Console.WriteLine($"Sucursales que obtienen ganancias entre $1,000 y $25,000: {menor}");
+                Console.WriteLine($"Sucursales que obtienen ganancias entre $1,000 y $25,000: {arribaMenor}");
 
                 for (int i = 0; i < 5; i++)
                 {
-                    if (gananciaS[i] > 1000 && gananciaS[i] < 25000)
+                    if (gananciaDeSucursal[i] > 1000 && gananciaDeSucursal[i] < 25000)
                     {
-                        Console.Write($"Sucursal: {sucursal[i]} ");
-                        if (gananciaS[i] < 30000)
+                        Console.Write($"Sucursal: {nombreDeSucursal[i]} ");
+                        if (gananciaDeSucursal[i] < 30000)
                             Console.Write("(Regular)");
                         else
                             Console.Write("(Bien Hecho)");
-                        Console.WriteLine($"\nGanancias: ${gananciaS[i]}");
+                        Console.WriteLine($"\nGanancias: ${gananciaDeSucursal[i]}");
                         Console.WriteLine($"Empleados: {empleados[i]}\n");
                     }
                 }
-                Console.WriteLine($"Sucursales que obtienen ganancias mayores de $25000: {mayor}"); ;
+                Console.WriteLine($"Sucursales que obtienen ganancias mayores de $25000: {arribaMayor}"); ;
                 for (int i = 0; i < 5; i++)
                 {
-                    if (gananciaS[i] >= 25000)
+                    if (gananciaDeSucursal[i] >= 25000)
                     {
-                        Console.Write($"Sucursal: {sucursal[i]} ");
-                        if (gananciaS[i] < 30000)
+                        Console.Write($"Sucursal: {nombreDeSucursal[i]} ");
+                        if (gananciaDeSucursal[i] < 30000)
                             Console.Write("(Regular)");
                         else
                             Console.Write("(Bien Hecho)");
 
-                        Console.WriteLine($"\nGanancias: ${gananciaS[i]}");
+                        Console.WriteLine($"\nGanancias: ${gananciaDeSucursal[i]}");
                         Console.WriteLine($"Empleados: {empleados[i]}\n");
                     }
                 }
-                Console.WriteLine($"Ganancia total de la empresa: ${gananciasT}");
+                Console.WriteLine($"Ganancia total de la empresa: ${gananciasTotales}");
             }
         }
     }
